@@ -1,11 +1,11 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
-import config = require('config')
+import config from 'config'
+import * as utils from '../utils'
 const notifications = require('../../data/datacache').notifications
-const utils = require('../utils')
 const challengeUtils = require('../challengeUtils')
 const security = require('../insecurity')
 const challenges = require('../../data/datacache').challenges

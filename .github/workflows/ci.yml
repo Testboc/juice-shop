@@ -25,10 +25,10 @@ jobs:
     steps:
       - name: "Check out Git repository"
         uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f #v2: v2.3.4 available
-      - name: "Use Node.js 16"
+      - name: "Use Node.js 18"
         uses: actions/setup-node@f1f314fca9dfce2769ece7d933488f076716723e #v1: v2.x available
         with:
-          node-version: 16
+          node-version: 18
       - name: "Install CLI tools"
         run: npm install -g @angular/cli@$ANGULAR_CLI_VERSION
       - name: "Install application minimalistically"
@@ -57,10 +57,10 @@ jobs:
     steps:
       - name: "Check out Git repository"
         uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f #v2: v2.3.4 available
-      - name: "Use Node.js 16"
+      - name: "Use Node.js 18"
         uses: actions/setup-node@f1f314fca9dfce2769ece7d933488f076716723e #v1: v2.x available
         with:
-          node-version: 16
+          node-version: 18
       - name: "Install CLI tools"
         run: npm install -g @angular/cli@$ANGULAR_CLI_VERSION
       - name: "Install application"
@@ -72,7 +72,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
-        node-version: [14, 16, 18]
+        node-version: [16, 18, 20]
     steps:
       - name: "Check out Git repository"
         if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
@@ -112,7 +112,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
-        node-version: [14, 16, 18]
+        node-version: [16, 18, 20]
     steps:
       - name: "Check out Git repository"
         if: github.repository == 'juice-shop/juice-shop' || github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '16'
@@ -184,10 +184,10 @@ jobs:
     steps:
       - name: "Check out Git repository"
         uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f #v2: v2.3.4 available
-      - name: "Use Node.js 16"
+      - name: "Use Node.js 18"
         uses: actions/setup-node@f1f314fca9dfce2769ece7d933488f076716723e #v1: v2.x available
         with:
-          node-version: 16
+          node-version: 18
       - name: "Install CLI tools"
         run: npm install -g @angular/cli@$ANGULAR_CLI_VERSION
       - name: "Install application"
@@ -220,10 +220,10 @@ jobs:
     steps:
       - name: "Check out Git repository"
         uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f #v2: v2.3.4 available
-      - name: "Use Node.js 16"
+      - name: "Use Node.js 18"
         uses: actions/setup-node@f1f314fca9dfce2769ece7d933488f076716723e #v1: v2.x available
         with:
-          node-version: 16
+          node-version: 18
       - name: "Install CLI tools"
         run: npm install -g @angular/cli
       - name: "Install application"
@@ -256,25 +256,15 @@ jobs:
           CYPRESS_CACHE_FOLDER: /Users/runner/Library/Caches/Cypress
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - uses: actions/upload-artifact@v2
-        if: failure()
-        with:
-          name: cypress-screenshots
-          path: cypress/screenshots
-      - uses: actions/upload-artifact@v2
-        if: always()
-        with:
-          name: cypress-videos
-          path: cypress/videos
   smoke-test:
     runs-on: ubuntu-latest
     steps:
       - name: "Check out Git repository"
         uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f #v2: v2.3.4 available
-      - name: "Use Node.js 16"
+      - name: "Use Node.js 18"
         uses: actions/setup-node@f1f314fca9dfce2769ece7d933488f076716723e #v1: v2.x available
         with:
-          node-version: 16
+          node-version: 18
       - name: "Install CLI tools"
         run: |
           npm install -g @angular/cli@$ANGULAR_CLI_VERSION
@@ -332,7 +322,7 @@ jobs:
           fi
           echo "VCS_REF=`git rev-parse --short HEAD`" >> $GITHUB_ENV
           echo "BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”`" >> $GITHUB_ENV
-      - name: "Build and push for AMD processors"
+      - name: "Build and push for AMD64 and ARM64 processors"
         uses: docker/build-push-action@a66e35b9cbcf4ad0ea91ffcaf7bbad63ad9e0229 #note: newer is available
         with:
           context: .
@@ -341,18 +331,6 @@ jobs:
           push: true
           tags: |
             bkimminich/juice-shop:${{ env.DOCKER_TAG }}
-          build-args: |
-            VCS_REF=${{ env.VCS_REF }}
-            BUILD_DATE=${{ env.BUILD_DATE }}
-      - name: "Build and push for ARM processors"
-        uses: docker/build-push-action@a66e35b9cbcf4ad0ea91ffcaf7bbad63ad9e0229 #note: newer is available
-        with:
-          context: .
-          file: ./Dockerfile.arm
-          platforms: linux/arm/v7
-          push: true
-          tags: |
-            bkimminich/juice-shop:${{ env.DOCKER_TAG }}-arm
           build-args: |
             VCS_REF=${{ env.VCS_REF }}
             BUILD_DATE=${{ env.BUILD_DATE }}

@@ -1,12 +1,12 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import fs = require('fs')
-const config = require('config')
+import config from 'config'
+import * as utils from '../utils'
 const replace = require('replace')
-const utils = require('../utils')
 
 const customizeApplication = () => {
   if (config.get('application.name')) {
@@ -70,7 +70,7 @@ const customizePromotionSubtitles = async () => {
 }
 
 const retrieveCustomFile = async (sourceProperty: string, destinationFolder: string) => {
-  let file = config.get(sourceProperty)
+  let file = config.get<string>(sourceProperty)
   if (utils.isUrl(file)) {
     const filePath = file
     file = utils.extractFilename(file)

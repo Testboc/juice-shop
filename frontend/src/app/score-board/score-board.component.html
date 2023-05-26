@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+  ~ Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
   ~ SPDX-License-Identifier: MIT
   -->
 
@@ -112,7 +112,7 @@
 
       <ng-container matColumnDef="name">
         <mat-header-cell *matHeaderCellDef translate>LABEL_NAME</mat-header-cell>
-        <mat-cell *matCellDef="let challenge">
+        <mat-cell *matCellDef="let challenge" [id]="challenge.name">
           {{challenge.name}}
         </mat-cell>
       </ng-container>
@@ -254,4 +254,4 @@
 
 <img src="assets/public/images/padding/1px.png"/>
 
-<ngx-spinner class="overlay-fullscreen" type="timer" size="large"></ngx-spinner>
+<ngx-spinner fullscreen="true" type="timer" size="large"></ngx-spinner>

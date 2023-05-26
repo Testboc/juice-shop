@@ -1,11 +1,11 @@
 /*
- * Copyright (c) 2014-2022 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import frisby = require('frisby')
 import { Product } from '../../data/types'
-import config = require('config')
+import config from 'config'
 const security = require('../../lib/insecurity')
 
 const christmasProduct = config.get<Product[]>('products').filter(({ useForChristmasSpecialChallenge }: Product) => useForChristmasSpecialChallenge)[0]

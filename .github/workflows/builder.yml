@@ -19,7 +19,7 @@ jobs:
       - name: hawk scan run
         uses: stackhawk/hawkscan-action@v2.0.3
         with:
-          apiKey: ${{ secrets.Hawk_API_KEY }}
+          apiKey: ${{ secrets.HAWK_API_KEY }}
         
     
 
